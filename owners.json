@@ -1,0 +1,9 @@
+{
+  "telephony": {"team": "voice-infra", "contact": "#voice-infra-oncall"},
+  "stt": {"team": "speech", "contact": "#speech-team"},
+  "model": {"team": "ai-agent", "contact": "#agent-dev"},
+  "integration": {"team": "integrations", "contact": "#ehr-integrations"},
+  "tts": {"team": "speech", "contact": "#speech-team"},
+  "policy": {"team": "ai-agent", "contact": "#agent-dev"},
+  "unknown": {"team": "qa", "contact": "#voice-qa"}
+}

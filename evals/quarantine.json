@@ -1,0 +1,4 @@
+[
+  {"case_id": "G18", "reason": "Noisy-line booking depends on STT vendor upgrade (ticket VQA-112). Tracked, not hidden.",
+   "owner": "speech-team", "ticket": "VQA-112", "created": "2026-10-01", "expires": "2026-12-31"}
+]

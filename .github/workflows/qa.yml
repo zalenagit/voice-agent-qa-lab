@@ -1,0 +1,49 @@
+name: voice-agent-qa
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: pip install pytest
+
+      - name: Unit, API and triage tests
+        run: pytest
+
+      - name: Golden-set evaluation (baseline model)
+        run: python -m evals.run_eval --model v1 --out reports/eval_v1.json
+
+      - name: Red-team suite
+        run: python -m redteam.run --out reports/redteam.json
+
+      - name: Release gate
+        run: python -m release.gate reports/eval_v1.json reports/redteam.json --out reports/release-decision.md
+
+      - name: Candidate model comparison (expected to report regressions)
+        if: always()
+        run: |
+          python -m evals.run_eval --model v2 --out reports/eval_v2.json
+          python -m evals.compare reports/eval_v1.json reports/eval_v2.json --out reports/compare.md || echo "v2 blocked as expected"
+
+      - name: Production monitoring simulation
+        if: always()
+        run: |
+          python -m monitoring.simulate_production --out reports/production_calls.jsonl
+          python -m monitoring.monitor reports/production_calls.jsonl --out reports/production-report.md
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-reports
+          path: reports/
