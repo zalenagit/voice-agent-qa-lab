@@ -86,4 +86,4 @@ Each layer function in `agent/layers.py` has a narrow interface (text in, text a
 
 ## Author
 
-**Zalina Yusop**, AI-QA Engineering Analyst · [LinkedIn](https://www.linkedin.com/in/szalina-myusop-b2624b211/) · [GitHub](https://github.com/zalenagit)
+**Zalina Yusop**, AI-QA Engineering Analyst · [LinkedIn](https://www.linkedin.com/in/zalina-yusop-b2624b211/) · [GitHub](https://github.com/zalenagit)
